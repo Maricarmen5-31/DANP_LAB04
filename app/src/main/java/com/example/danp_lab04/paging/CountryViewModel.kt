@@ -8,8 +8,8 @@ import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.PagingData
 import androidx.paging.cachedIn
+import com.example.danp_lab04.R
 import com.example.danp_lab04.entities.Country
-import com.example.danp_lab04.model.AppDatabase
 import com.example.danp_lab04.model.CountryRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
@@ -26,6 +26,13 @@ class CountryViewModel
 @Inject constructor(
     private val repo: CountryRepository
 ): ViewModel() {
+
+    var countries : List<Country> = listOf()
+    fun getCountries(){
+        viewModelScope.launch(Dispatchers.IO){
+            countries = repo.getCountries()
+        }
+    }
 
     fun addCountriesFromJason(context: Context) {
 
@@ -54,14 +61,14 @@ class CountryViewModel
             }
         }
         catch (e: JSONException) {
-            Log.d("ERROR",e.toString())
+            Log.e("ERROR",e.toString())
         }
     }
 
     fun readJSONFromAsset(context: Context): String {
         val json: String?
         try {
-            val inputStream = context.resources.assets.open("countries")
+            val inputStream = context.resources.openRawResource(R.raw.countries)
             val size = inputStream.available()
             val buffer = ByteArray(size)
             val charset: Charset = Charsets.UTF_8

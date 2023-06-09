@@ -8,22 +8,15 @@ import androidx.activity.viewModels
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.lifecycleScope
-import androidx.navigation.NavController
-import androidx.paging.Pager
-import androidx.paging.PagingConfig
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.RecyclerView
 import com.example.danp_lab04.adapters.CountryAdapter
-import com.example.danp_lab04.model.AppDatabase
-import com.example.danp_lab04.model.CountryRepository
-import com.example.danp_lab04.paging.CountryPagingSource
 import com.example.danp_lab04.paging.CountryViewModel
 import com.example.danp_lab04.ui.theme.DANP_LAB04Theme
 import dagger.hilt.android.AndroidEntryPoint
@@ -46,7 +39,6 @@ class MainActivity : ComponentActivity() {
                 }
             }
         }
-
         setContentView(R.layout.activity_main)
 
         val viewModel by viewModels<CountryViewModel>()
@@ -72,21 +64,11 @@ fun CountryScreen (
     viewModel: CountryViewModel = hiltViewModel()
 ) {
     viewModel.addCountriesFromJason(context)
-    Text("hOLA")
-}
-
-@Composable
-fun Greeting(name: String, modifier: Modifier = Modifier) {
-    Text(
-        text = "Hello $name!",
-        modifier = modifier
-    )
 }
 
 @Preview(showBackground = true)
 @Composable
 fun GreetingPreview() {
     DANP_LAB04Theme {
-        Greeting("Android")
     }
 }

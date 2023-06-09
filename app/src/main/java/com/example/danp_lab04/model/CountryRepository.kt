@@ -8,6 +8,7 @@ class CountryRepository(
 ) {
 
     suspend fun insertCountry(country: Country) {
+        Log.d("REPOSITORY", "Estoy en el repositorio ekcnfeinbibnfkjlxn")
         return appDatabase.countryDao().insertCountry(country)
     }
 
